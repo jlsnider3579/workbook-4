@@ -49,6 +49,15 @@ public class Dealership {
         }
         return vehiclesMakeModel;
     }
+    ArrayList<Vehicle> getByYear(int year) {
+        ArrayList<Vehicle> vehiclesByYear = new ArrayList<>();
+        for (Vehicle vehicle: inventory) {
+            if (vehicle.getYear() == year);
+            vehiclesByYear.add(vehicle);
+        }
+        return vehiclesByYear;
+    }
+
 }
 
 
