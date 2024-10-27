@@ -39,6 +39,16 @@ public class Dealership {
         }
         return vehiclesBetweenPriceRange;
     }
+    public ArrayList<Vehicle> getVehicleMakeModel(String make, String model) {
+        ArrayList<Vehicle> vehiclesMakeModel = new ArrayList<>();
+        for (Vehicle vehicle: inventory) {
+            if (vehicle.getMake().equalsIgnoreCase(make) && vehicle.getModel().equalsIgnoreCase(model)) {
+                vehiclesMakeModel.add(vehicle);
+            }
+
+        }
+        return vehiclesMakeModel;
+    }
 }
 
 
