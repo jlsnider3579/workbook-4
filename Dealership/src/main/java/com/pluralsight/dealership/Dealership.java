@@ -65,6 +65,14 @@ public class Dealership {
         }
         return vehiclesByColor;
     }
+    ArrayList<Vehicle> getVehicleByMilliage(int odometer) {
+        ArrayList<Vehicle> vehiclesByMilliage = new ArrayList<>();
+        for (Vehicle vehicle: inventory) {
+            if (vehicle.getOdometer() <= odometer);
+            vehiclesByMilliage.add(vehicle);
+        }
+        return vehiclesByMilliage;
+    }
 }
 
 
