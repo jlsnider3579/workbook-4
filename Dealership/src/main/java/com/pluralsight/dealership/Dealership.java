@@ -57,7 +57,14 @@ public class Dealership {
         }
         return vehiclesByYear;
     }
-
+    ArrayList<Vehicle> vehicleByColor(String color) {
+        ArrayList<Vehicle> vehiclesByColor = new ArrayList<>();
+        for (Vehicle vehicle: inventory){
+            if (vehicle.getColor().equalsIgnoreCase(color));
+            vehiclesByColor.add(vehicle);
+        }
+        return vehiclesByColor;
+    }
 }
 
 
