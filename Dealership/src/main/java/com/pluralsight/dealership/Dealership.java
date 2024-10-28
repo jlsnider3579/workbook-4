@@ -65,13 +65,21 @@ public class Dealership {
         }
         return vehiclesByColor;
     }
-    ArrayList<Vehicle> getVehicleByMilliage(int odometer) {
-        ArrayList<Vehicle> vehiclesByMilliage = new ArrayList<>();
+    ArrayList<Vehicle> getVehicleByMileage(int odometer) {
+        ArrayList<Vehicle> vehiclesByMileage = new ArrayList<>();
         for (Vehicle vehicle: inventory) {
             if (vehicle.getOdometer() <= odometer);
-            vehiclesByMilliage.add(vehicle);
+            vehiclesByMileage.add(vehicle);
         }
-        return vehiclesByMilliage;
+        return vehiclesByMileage;
+    }
+    ArrayList<Vehicle> getVehiclesByType(String type) {
+       ArrayList<Vehicle> vehiclesByType = new ArrayList<>();
+       for (Vehicle vehicle: inventory) {
+           if (vehicle.getVehicleType().equalsIgnoreCase(type));
+           vehiclesByType.add(vehicle);
+       }
+       return vehiclesByType;
     }
 }
 

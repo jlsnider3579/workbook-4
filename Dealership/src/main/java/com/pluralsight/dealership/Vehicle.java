@@ -5,7 +5,7 @@ package com.pluralsight.dealership;
         private int year;
         private String make;
         private String model;
-        private String vehicle;
+        private String vehicleType;
         private String color;
         private int odometer;
         private double price;
@@ -26,8 +26,8 @@ package com.pluralsight.dealership;
             return model;
         }
 
-        public String getVehicle() {
-            return vehicle;
+        public String getVehicleType() {
+            return vehicleType;
         }
 
         public String getColor() {
@@ -47,7 +47,7 @@ package com.pluralsight.dealership;
             this.year = year;
             this.make = make;
             this.model = model;
-            this.vehicle = vehicle;
+            this.vehicleType = vehicle;
             this.color = color;
             this.odometer = odometer;
             this.price = price;
