@@ -1,86 +1,94 @@
 package com.pluralsight.dealership;
 
+import jdk.incubator.vector.VectorShuffle;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class Dealership {
-    private String name;
-    private String adress;
-    private String phone;
-    ArrayList<Vehicle> inventory = new ArrayList<Vehicle>();
+    private final String name;
+    private final String address;
+    private final String phoneNumber;
+    private final ArrayList<Vehicle> inventory;
 
-    public Dealership(String name, String adress, String phone) {
+    public Dealership(String name, String address, String phoneNumber, ArrayList<Vehicle> inventory) {
         this.name = name;
-        this.adress = adress;
-        this.phone = phone;
+        this.address = address;
+        this.phoneNumber = phoneNumber;
         this.inventory = inventory;
-
     }
 
     public void addVehicle(Vehicle vehicle) {
         inventory.add(vehicle);
     }
 
-    public void removeVehicle(Vehicle vehicle) {
-        inventory.remove(vehicle);
-    }
-
     public ArrayList<Vehicle> getAllVehicles() {
+        if (inventory.isEmpty()) {
+            System.out.println("No vehicles available at the moment.");
+        } else {
+            System.out.println("Vehicles available at " + name + ": ");
+            for (Vehicle vehicle : inventory) {
+                System.out.println(vehicle);
+            }
+
+        }
         return inventory;
     }
 
-    public ArrayList<Vehicle> getVehiclePrice(double min, double max) {
-        ArrayList<Vehicle> vehiclesBetweenPriceRange = new ArrayList<>();
+    public ArrayList<Vehicle> getVehiclesByPrice(int min, int max) {
+        ArrayList<Vehicle> filteredVehiclesByPrice = new ArrayList<>();
+
         for (Vehicle vehicle : inventory) {
-
             if (vehicle.getPrice() >= min && vehicle.getPrice() <= max) {
-                vehiclesBetweenPriceRange.add(vehicle);
+                filteredVehiclesByPrice.add(vehicle);
             }
         }
-        return vehiclesBetweenPriceRange;
-    }
-    public ArrayList<Vehicle> getVehicleMakeModel(String make, String model) {
-        ArrayList<Vehicle> vehiclesMakeModel = new ArrayList<>();
-        for (Vehicle vehicle: inventory) {
-            if (vehicle.getMake().equalsIgnoreCase(make) && vehicle.getModel().equalsIgnoreCase(model)) {
-                vehiclesMakeModel.add(vehicle);
-            }
 
-        }
-        return vehiclesMakeModel;
+        return filteredVehiclesByPrice; // Return the filtered list
     }
-    ArrayList<Vehicle> getByYear(int year) {
-        ArrayList<Vehicle> vehiclesByYear = new ArrayList<>();
-        for (Vehicle vehicle: inventory) {
-            if (vehicle.getYear() == year);
-            vehiclesByYear.add(vehicle);
-        }
-        return vehiclesByYear;
+
+    public List<Vehicle> getVehiclesByMakeModel(String make, String model) {
+        return inventory.stream().filter(vehicle -> vehicle.getMake().equalsIgnoreCase(make) && vehicle.getModel().equalsIgnoreCase(model)).toList();
     }
-    ArrayList<Vehicle> vehicleByColor(String color) {
-        ArrayList<Vehicle> vehiclesByColor = new ArrayList<>();
-        for (Vehicle vehicle: inventory){
-            if (vehicle.getColor().equalsIgnoreCase(color));
-            vehiclesByColor.add(vehicle);
-        }
-        return vehiclesByColor;
+
+    public List<Vehicle> getVehiclesByYear(int min, int max) {
+        return inventory.stream().filter(vehicle -> vehicle.getYear() >= min && vehicle.getYear() <= max)
+                .toList();
     }
-    ArrayList<Vehicle> getVehicleByMileage(int odometer) {
-        ArrayList<Vehicle> vehiclesByMileage = new ArrayList<>();
-        for (Vehicle vehicle: inventory) {
-            if (vehicle.getOdometer() <= odometer);
-            vehiclesByMileage.add(vehicle);
-        }
-        return vehiclesByMileage;
+
+    public List<Vehicle> getVehiclesByColor(String color) {
+        return inventory.stream().filter(vehicle -> vehicle.getColor().equalsIgnoreCase(color))
+                .toList();
     }
-    ArrayList<Vehicle> getVehiclesByType(String type) {
-       ArrayList<Vehicle> vehiclesByType = new ArrayList<>();
-       for (Vehicle vehicle: inventory) {
-           if (vehicle.getVehicleType().equalsIgnoreCase(type));
-           vehiclesByType.add(vehicle);
-       }
-       return vehiclesByType;
+
+    public List<Vehicle> getVehiclesByVin(int vin) {
+        return inventory.stream().filter(vehicle -> vehicle.getVin() == vin).collect(Collectors.toList());
+    }
+
+    public List<Vehicle> getVehiclesByMileage(int min, int max) {
+        return inventory.stream().filter(vehicle -> vehicle.getOdometer() >= min && vehicle.getOdometer() <= max).collect(Collectors.toList());
+    }
+
+    public List<Vehicle> getVehiclesByType(String vehicleType) {
+        return inventory.stream().filter(vehicle -> vehicle.getVehicleType().equalsIgnoreCase(vehicleType)).toList();
+    }
+
+    public void RemoveVehicles(Vehicle vehicle) {
+        inventory.remove(vehicle);
+
+    }
+
+    public void getByAddedVehicles(Vehicle vehicle) {
+        inventory.add(vehicle);
+    }
+
+    @Override
+    public String toString() {
+        return "Dealership{" + "name='" + name + '\'' + ", address='" + address + '\'' + ", phoneNumber='" + phoneNumber + '\'' + ", inventory=" + inventory + '}';
     }
 }
+
+
 
 
