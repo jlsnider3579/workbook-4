@@ -13,16 +13,18 @@ public class UserInterface {
 
     private void displayDealershipMenu() {
         System.out.println("""
-                1 ) Find Vehicles Within a Price Range
-                2 ) Find Vehicles by make / model
-                3 )Find vehicles by year range
-                4 ) Find vehicles by color
-                5 ) Find vehicles by mileage range
-                6 ) Find vehicles by type (car, truck, SUV, van)
-                7 ) List all Vehicles
-                8 ) Add a vehicle
-                9 ) Remove a vehicle
-                x ) Quit
+                1 ) Find Vehicles Within a Price Range.
+                2 ) Find Vehicles by make / model.
+                3 ) Find vehicles by year range.
+                4 ) Find vehicles by color.
+                5 ) Find vehicles by mileage range.
+                6 ) Find vehicles by type. (car, truck, SUV, van)
+                7 ) List all Vehicles.
+                8 ) Add a vehicle.
+                9 ) Remove a vehicle.
+                10) Start a sales contract.
+                11) Start a leasing contract.
+                x ) Quit.
                 """);
 
     }
@@ -61,6 +63,12 @@ public class UserInterface {
                     break;
                 case "9":
                     getRemovedVehicle();
+                    break;
+                case "10":
+                    startSalesContract();
+                    break;
+                case "11":
+
                     break;
                 case "x":
                     System.out.println("Exiting... ");
@@ -270,6 +278,64 @@ public class UserInterface {
         System.out.println("Vehicle has been successfully removed from inventory ");
         new DealershipFileManager().saveDealership(dealership);
     }
+    private void startSalesContract(){
+        int vin;
+        String customer;
+        String customerEmail;
+        double downPayment;
+        boolean finance;
+
+        System.out.println("Please enter the vehicle VIN number for a Sales Contract ");
+        vin = getPosInt(s.nextLine());
+
+        Vehicle vehicle = findVehicleByVin(vin);
+        if (vehicle == null) {
+            System.out.println("Sorry vehicle was not found ");
+            return;
+        }
+        System.out.println("Please enter customer name ");
+        customer = s.nextLine().toLowerCase().trim();
+
+        System.out.println("Please enter customer email");
+        customerEmail = s.nextLine().toLowerCase().trim();
+
+        System.out.println("How much would you like to put for a down payment?");
+        downPayment = Double.parseDouble(s.nextLine());
+
+        System.out.println("Would you like to finance a vehicle? yes/no");
+        finance = s.nextLine().equalsIgnoreCase("yes");
+
+       // SalesContract contract = new SalesContract(customer, customerEmail, vehicle, downPayment, finance);
+
+    }
+    public void startLeasingContract() {
+        int vin;
+        String customer;
+        String customerEmail;
+        double downPayment;
+        int leaseDuration;
+
+        System.out.println("Please enter the vehicle VIN number for a Leasing Contract: ");
+        vin = getPosInt(s.nextLine());
+
+        Vehicle vehicle = findVehicleByVin(vin);
+        if (vehicle == null) {
+            System.out.println("Sorry, vehicle was not found.");
+            return;
+        }
+
+        System.out.println("Please enter customer name: ");
+        customer = s.nextLine().toLowerCase().trim();
+
+        System.out.println("Please enter customer email: ");
+        customerEmail = s.nextLine().toLowerCase().trim();
+
+        System.out.println("How much would you like to put for a down payment?");
+        downPayment = Double.parseDouble(s.nextLine());
+
+        System.out.println("Enter lease duration in months: ");
+        leaseDuration = getPosInt(s.nextLine());
+    }
 
     private String userMenuPrompt(Scanner s) {
         System.out.println("Enter your choice");
@@ -295,6 +361,11 @@ public class UserInterface {
         }
         return -1; // Return -1 if the input is invalid
     }
+    public Vehicle findVehicleByVin(int vin){
+        List<Vehicle> vehicles = dealership.getVehiclesByVin(vin);
+        return vehicles.isEmpty() ? null : vehicles.get(0);
+    }
+
 
 }
 
